@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>google auth</title>
+    <style>
+        .btn {
+            width: 120px;
+            height: 40px;
+            font-size: large;
+            cursor: pointer;
+        }
+
+        .btn-main {
+            background-color: aquamarine;
+        }
+
+        .btn-seco {
+            background-color: cornsilk;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./google-oauth2.js"></script>
+</head>
+
+<body>
+
+    <h1>Namaste!</h1>
+
+    <h3 id="message"></h3>
+
+    <button id="login" class="btn btn-main" onclick="googleLogin()">login</button>
+    <button id="logout" class="btn btn-seco" onclick="googleLogout()">logout</button>
+
+    <script>
+        const loginFlag = false;
+
+        const go2 = new GO2({
+            clientId: "450756272527-didnijbun0cqvcv1pp7hblrpgnjcvn4t.apps.googleusercontent.com",
+            redirectUri: "http://localhost:5500/"
+        })
+
+        const googleLogin = () => {
+            go2.login()
+        }
+
+        const googleLogout = () => {
+            go2.logout()
+        }
+
+        setInterval(() => {
+            const accessToken = go2.getAccessToken()
+            if(!accessToken){
+                $("#message").html("You are not yet authorized!");
+            }else{
+                $("#message").html("You are now authorized!");
+            }
+        }, 500)
+
+    </script>
+</body>
+
+</html>
